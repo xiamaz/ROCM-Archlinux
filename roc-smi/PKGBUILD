@@ -1,0 +1,29 @@
+# Maintainer: Max Zhao <alcasa.mz@gmail.com>
+pkgname=rocm-smi
+pkgver=1.7.0
+pkgrel=1
+pkgdesc="ROC System Management Interface"
+_gitdir=ROC-smi
+arch=('x86_64')
+url="https://github.com/RadeonOpenCompute/ROC-smi"
+license=('X11/MIT')
+groups=()
+depends=(linux-rocm)
+makedepends=()
+gc=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+replaces=()
+backup=()
+options=()
+source=('git+https://github.com/RadeonOpenCompute/ROC-smi.git#branch=roc-1.7.x')
+md5sums=('SKIP')
+
+package() {
+	cd "$srcdir/${_gitdir}"
+
+	# additional links
+	mkdir -p "$pkgdir/opt/rocm/bin"
+	mkdir -p "$pkgdir/usr/bin"
+	cp -ax "rocm-smi" "$pkgdir/opt/rocm/bin"
+	ln -s "$pkgdir/opt/rocm/bin/rocm-smi" "$pkgdir/usr/bin/"
+}

@@ -1,0 +1,30 @@
+# Maintainer: Olaf Leidinger <oleid@mescharet.de>
+pkgname=hsa-ext-rocr
+pkgver=1.1.7
+pkgrel=12
+_debfile=hsa-ext-rocr-dev_${pkgver}-${pkgrel}-gf0de514_amd64.deb
+pkgdesc="ROCm Platform Runtime: Closed source components"
+arch=('x86_64')
+url="https://github.com/RadeonOpenCompute/ROCm"
+license=('EULA')
+groups=()
+depends=(hsa-rocr)
+makedepends=()
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+replaces=()
+backup=()
+options=()
+source=("http://repo.radeon.com/rocm/apt/debian/pool/main/h/hsa-ext-rocr-dev/${_debfile}")
+sha256sums=('6814b9c016f32b33dc6ac6007378890828ea23d402cacc99025f8f661b8e0981')
+
+package() {
+	cd "$srcdir"
+	tar xf data.tar.gz
+
+	mkdir -p ${pkgdir}/usr/bin
+	mkdir -p ${pkgdir}/usr/lib
+
+	cp -ax opt/rocm/hsa/bin/* ${pkgdir}/usr/bin
+	cp -ax opt/rocm/hsa/lib/* ${pkgdir}/usr/lib
+}

@@ -1,0 +1,25 @@
+# Maintainer: Olaf Leidinger <oleid@mescharet.de>
+pkgname=rocm-opencl-dev
+pkgver=1.2.0
+pkgrel=1
+_debfile=${pkgname}_${pkgver}-2017121952_amd64.deb
+pkgdesc="OpenCL/ROCm"
+arch=('x86_64')
+url="https://github.com/RadeonOpenCompute/ROCm"
+license=('EULA')
+groups=()
+depends=(rocm-opencl)
+makedepends=()
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+replaces=()
+backup=()
+options=()
+source=("http://repo.radeon.com/rocm/apt/debian/pool/main/r/${pkgname}/${_debfile}")
+sha256sums=('2c06f04d6efda3fc2256b0fa97013bd02eb6cbe15f2c93524b97a758226c59d7')
+
+package() {
+	cd "$srcdir"
+	tar xf data.tar.xz
+	cp -rax ${srcdir}/opt ${pkgdir}
+}
